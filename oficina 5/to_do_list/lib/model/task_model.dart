@@ -4,10 +4,10 @@ part 'task_model.g.dart';
 class TaskModel = _TaskModelBase with _$TaskModel;
 
 abstract class _TaskModelBase with Store {
-  _TaskModelBase({this.taskTitle});
+  _TaskModelBase({this.taskTitle = ''});
 
   @observable
-  String taskTitle;
+  String taskTitle = '';
 
   @action
   setTextTitle(String text) => taskTitle = text;

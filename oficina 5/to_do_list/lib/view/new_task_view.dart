@@ -7,8 +7,10 @@ class NewTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     final HomeController args = ModalRoute.of(context).settings.arguments;
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Center(
           child: Text('Nova tarefa'),
@@ -39,8 +41,13 @@ class NewTask extends StatelessWidget {
               child: Text('Adicionar Tarefa'),
               color: Colors.blue[300],
               onPressed: () {
-                args.addTask(task);
-                Navigator.pop(context);
+                if (task.taskTitle.isNotEmpty) {
+                  args.addTask(task);
+                  Navigator.pop(context);
+                } else {
+                  _scaffoldKey.currentState.showSnackBar(
+                      SnackBar(content: Text('Seu texto não pode ser vazio!')));
+                }
               },
             )
           ],
